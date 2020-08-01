@@ -3,80 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
+
+
 class Home extends StatefulWidget {
+  final flutterWebViewPlugin = FlutterWebviewPlugin();
+  String selectedUrl = 'https://www.chatal3rak.xyz/chat/';
+
+
   @override
   _HomeState createState() => _HomeState();
 }
 
-String selectedUrl = 'https://www.chatal3rak.xyz/chat/';
-
 class _HomeState extends State<Home> {
-  final flutterWebViewPlugin = FlutterWebviewPlugin();
+  String selectedUrl = 'https://www.chatal3rak.xyz/chat/';
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter WebView Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routes: {
-        '/': (_) => const MyHomePage(title: 'Flutter WebView Demo'),
-        '/widget': (_) {
-          return WebviewScaffold(
-            url: selectedUrl,
-//            javascriptChannels: jsChannels,
-            mediaPlaybackRequiresUserGesture: false,
-            withZoom: true,
-            withLocalStorage: true,
-            hidden: true,
-            initialChild: Container(
-              color: Colors.redAccent,
-              child: const Center(
-                child: Text('Waiting.....'),
-              ),
-            ),
-            bottomNavigationBar: BottomAppBar(
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      flutterWebViewPlugin.goBack();
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_forward_ios),
-                    onPressed: () {
-                      flutterWebViewPlugin.goForward();
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.autorenew),
-                    onPressed: () {
-                      flutterWebViewPlugin.reload();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   // Instance of WebView plugin
   final flutterWebViewPlugin = FlutterWebviewPlugin();
 
@@ -114,22 +54,22 @@ class _MyHomePageState extends State<MyHomePage> {
 //    });
 
     // Add a listener to on destroy WebView, so you can make came actions.
-    _onDestroy = flutterWebViewPlugin.onDestroy.listen((_) {
-      if (mounted) {
-        // Actions like show a info toast.
-        _scaffoldKey.currentState.showSnackBar(
-            const SnackBar(content: const Text('Webview Destroyed')));
-      }
-    });
+//    _onDestroy = flutterWebViewPlugin.onDestroy.listen((_) {
+//      if (mounted) {
+//        // Actions like show a info toast.
+//        _scaffoldKey.currentState.showSnackBar(
+//            const SnackBar(content: const Text('Webview Destroyed')));
+//      }
+//    });
 
     // Add a listener to on url changed
-    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
-      if (mounted) {
-        setState(() {
-          _history.add('onUrlChanged: $url');
-        });
-      }
-    });
+//    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
+//      if (mounted) {
+//        setState(() {
+//          _history.add('onUrlChanged: $url');
+//        });
+//      }
+//    });
 
     _onProgressChanged =
         flutterWebViewPlugin.onProgressChanged.listen((double progress) {
@@ -196,15 +136,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(child:Image.asset('assets/logo.png',))
-          ],
-        ),
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: WebviewScaffold(
+          url: selectedUrl,
+//            javascriptChannels: jsChannels,
+          mediaPlaybackRequiresUserGesture: false,
+          withZoom: true,
+          withLocalStorage: true,
+          hidden: true,
+          initialChild: Container(
+            color: Colors.redAccent,
+            child:  Center(
+              child: Image.asset('assets/logo.png',height: 150,width: 150,),
+            ),
+          ),
+
+        )
       ),
     );
   }

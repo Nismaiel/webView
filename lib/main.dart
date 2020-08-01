@@ -6,8 +6,8 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Web Views',
+    return MaterialApp(debugShowCheckedModeBanner: false,
+      title: 'سناب شات عربي',
       theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: "Arial",
