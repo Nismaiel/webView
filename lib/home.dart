@@ -7,7 +7,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class Home extends StatefulWidget {
   final flutterWebViewPlugin = FlutterWebviewPlugin();
-  String selectedUrl = 'https://www.chatal3rak.xyz/chat/';
+  String selectedUrl = 'YOUR-URL-HERE';
 
 
   @override
